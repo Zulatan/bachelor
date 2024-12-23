@@ -2,11 +2,20 @@
 
 use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\ProfileController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/customer/{id}/bookings', [BookingsController::class, 'showCustomerBookings']);
+
+
+##  Handles routes for traditional web pages that render HTML views.                 ##
+##  Uses session-based authentication and includes CSRF protection.                  ##
+##  Routes defined here expect to return web content (like HTML or Blade templates). ##
+
+// Route::get('/bookings', [BookingsController::class, 'index']);
+// Route::get('/customer/{id}/bookings', [BookingsController::class, 'showCustomerBookings']);
+// Route::get('/admin/{id}/bookings', [BookingsController::class, 'showCustomerBookings']);
 
 
 // VUE INERTIA code

@@ -9,11 +9,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('bookings', function (Blueprint $table) {
-            $table->id(); // Auto-incrementing primary key
-            $table->foreignId('customer')->constrained('users')->onDelete('cascade'); // FK to users (customers)
-            $table->foreignId('admin')->nullable()->constrained('users')->onDelete('cascade'); // FK to users (admins)
-            $table->timestamp('bookingTime'); // Date and time of booking
-            $table->boolean('accepted')->default(false); // Whether the booking is accepted
+            $table->id(); 
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->timestamp('date'); 
+            $table->timestamp('time'); 
+            $table->boolean('accepted')->default(false); // is the booking accepted?
+            $table->string('status')->default('pending'); // service pending or done?
+            $table->unsignedBigInteger('service_id'); // id to reference the service
             $table->timestamps(); // Adds created_at and updated_at
             $table->softDeletes(); // Adds deleted_at for soft deletes
         });
@@ -24,3 +26,4 @@ return new class extends Migration
         Schema::dropIfExists('bookings'); // Rollback (delete the table)
     }
 };
+

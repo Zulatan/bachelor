@@ -29,36 +29,33 @@ class Bookings extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'customer',
-        'admin',
-        'bookingTime',
+        'user_id',
+        'date',
+        'time',
         'accepted',
         'status',
+        'service_id',
     ];
 
     protected $dates = ['deleted_at'];
 
     
-    protected function casts(): array // 'Casting' = converting one data type to another
+    protected $casts = [ // casting = converting one data type to another
+        'date'     => 'date',
+        'time'     => 'time',
+        'accepted' => 'boolean',
+    ];
+
+
+
+    public function user()
     {
-        return [
-            'bookingTime'   => 'datetime',
-            'accepted'      => 'boolean', // converts 1/0 to true/false
-        ];
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-
-    // The customer who made the booking and the admin that is providing the booked service
-    public function customer()
+    public function service()
     {
-        return $this->belongsTo(User::class, 'customer', 'id');
+        return $this->belongsTo(Service::class, 'service_id');
     }
-
-    // The admin performing the service for the booking
-    public function admin()
-    {
-        return $this->belongsTo(User::class, 'admin', 'id');
-    }
-
 
 }

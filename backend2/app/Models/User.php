@@ -35,6 +35,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'admin',
+        'customer',
     ];
 
     /**
@@ -60,15 +62,13 @@ class User extends Authenticatable
         ];
     }
 
-    // Relationship for customers who own bookings
-    public function bookings()
+    // Relationship
+    // public function bookingsRelation()
+    // {
+    //     return $this->hasMany(Bookings::class, 'user');
+    // }
+    public function bookings() 
     {
-        return $this->hasMany(Bookings::class, 'customer', 'id');
-    }
-
-    // Relationship for admins who are assigned to bookings
-    public function assignedBookings()
-    {
-        return $this->hasMany(Bookings::class, 'admin', 'id');
+        return $this->hasMany(Bookings::class);
     }
 }
