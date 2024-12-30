@@ -34,8 +34,11 @@ class BookingRepository
     }
 
     // Opret en ny booking
-    public function createBooking(array $data): Bookings
+    public function createBooking(array $data, array $serviceIds): Bookings
     {
-        return Bookings::create($data);
+        $booking = Bookings::create($data);
+        $booking->services()->attach($serviceIds);
+        return $booking;
+        // return Bookings::create($data);
     }
 }

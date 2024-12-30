@@ -30,19 +30,16 @@ class Bookings extends Model
      */
     protected $fillable = [
         'user_id',
-        'date',
-        'time',
+        'scheduled_time',
         'accepted',
         'status',
-        'service_id',
     ];
 
     protected $dates = ['deleted_at'];
 
     
     protected $casts = [ // casting = converting one data type to another
-        'date'     => 'date',
-        'time'     => 'time',
+        'scheduled_time' => 'datetime',
         'accepted' => 'boolean',
     ];
 
@@ -53,9 +50,14 @@ class Bookings extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function service()
+    // public function service()
+    // {
+    //     return $this->belongsTo(Service::class, 'service_id');
+    // }
+    
+    public function services()
     {
-        return $this->belongsTo(Service::class, 'service_id');
+        return $this->belongsToMany(Service::class, 'booking_service', 'booking_id', 'service_id');
     }
 
 }

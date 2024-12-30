@@ -46,17 +46,19 @@ class BookingsController extends Controller
             'service_id'    => 'required|exists:services,id', // findes servicen
         ]);
         
+        $scheduledTime = $validateData['date']. '' . $validateData['time'];
+
         try {
             $data = [
-                'user_id'       => $request->user()->id,
-                'date'          => $validateData['date'],
-                'time'          => $validateData['time'],
-                'service_id'    => $validateData['service_id'],
-                'status'        => 'pending',
-                'accepted'      => true,
+                'user_id'           => $request->user()->id,
+                // 'scheduled_time'    => $validateData['date'],
+                'scheduled_time'    => $scheduledTime,
+                'status'            => 'pending',
+                'accepted'          => true,
             ];
 
-            $booking = $this->bookingRepository->createBooking($data);
+            $booking = $this->bookingRepository->createBooking($data, [$validateData['service_id']]);
+            $booking->services()->attach($validateData['service_id']);
         } catch (\Throwable $th) {
             //throw $th;
             report($th);

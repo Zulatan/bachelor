@@ -20,10 +20,13 @@ class Service extends Model
      * @var string
      */
     protected $primaryKey = 'id';
-    protected $fillable = ['name', 'description'];
+    protected $fillable = [
+        'name',
+        'description',
+    ];
 
     public function bookings()
     {
-        return $this->hasMany(Bookings::class);
+        return $this->belongsToMany(Bookings::class, 'booking_service', 'service_id', 'booking_id');
     }
 }

@@ -2,9 +2,12 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookingsController;
 use Inertia\Inertia;
+
+
+Route::get('/bookings/customers', [BookingsController::class, 'index']);
 
 Route::get('/bookings/customer/{userId}', [BookingsController::class, 'getCustomerBookings']);
 
