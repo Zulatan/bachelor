@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Bookings;
 use Illuminate\Http\Request;
-
+// use Illuminate\Container\Attributes\Log;
 use App\Repositories\BookingRepository;
 
 
@@ -51,14 +51,13 @@ class BookingsController extends Controller
         try {
             $data = [
                 'user_id'           => $request->user()->id,
-                // 'scheduled_time'    => $validateData['date'],
                 'scheduled_time'    => $scheduledTime,
                 'status'            => 'pending',
-                'accepted'          => true,
             ];
 
             $booking = $this->bookingRepository->createBooking($data, [$validateData['service_id']]);
             $booking->services()->attach($validateData['service_id']);
+
         } catch (\Throwable $th) {
             //throw $th;
             report($th);

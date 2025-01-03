@@ -1,11 +1,7 @@
 <?php
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookingsController;
-use Inertia\Inertia;
-
 
 Route::get('/bookings/customers', [BookingsController::class, 'index']);
 
@@ -13,4 +9,4 @@ Route::get('/bookings/customer/{userId}', [BookingsController::class, 'getCustom
 
 Route::get('/bookings/worker/{userId}', [BookingsController::class, 'GetWorkerBookings']);
 
-Route::post('/bookings/customer/{userId}', [BookingsController::class, 'storeBooking']);
+Route::post('/bookings', [BookingsController::class, 'storeBooking']);

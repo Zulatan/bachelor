@@ -14,8 +14,8 @@ class BookingsTableSeeder extends Seeder
         Bookings::create([
             'user_id'           => 1,
             'scheduled_time'    => now(),
-            'accepted'          => true,
-            'status'            => 'confirmed',
+            // 'accepted'          => true,
+            'status'            => 'pending',
         ]);
     }
 }

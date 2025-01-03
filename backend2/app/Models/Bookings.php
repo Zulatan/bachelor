@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Bookings extends Model
 {
+    use HasFactory;
     use SoftDeletes;
     public $timestamps = true; 
 
@@ -31,7 +33,7 @@ class Bookings extends Model
     protected $fillable = [
         'user_id',
         'scheduled_time',
-        'accepted',
+        // 'accepted',
         'status',
     ];
 
