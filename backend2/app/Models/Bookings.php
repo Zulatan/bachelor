@@ -33,7 +33,6 @@ class Bookings extends Model
     protected $fillable = [
         'user_id',
         'scheduled_time',
-        // 'accepted',
         'status',
     ];
 

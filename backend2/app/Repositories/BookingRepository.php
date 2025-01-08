@@ -42,3 +42,6 @@ class BookingRepository
         // return Bookings::create($data);
     }
 }
+
+$booking = Bookings::where('id', 5)->first();
+$eksempel = "SELECT * FROM bookings WHERE id = ?";

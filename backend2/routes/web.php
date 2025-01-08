@@ -18,7 +18,7 @@ Route::get('/bookings/customer/{userId}', [BookingsController::class, 'getCustom
 Route::get('/bookings/worker/{userId}', [BookingsController::class, 'GetWorkerBookings']);
 
 // Route::post('/bookings/customer/{userId}', [BookingsController::class, 'storeBooking']);
-Route::post('/bookings', [BookingsController::class, 'storeBooking']);
+Route::post('/bookings/store', [BookingsController::class, 'storeBooking']);
 
 // VUE INERTIA code
 

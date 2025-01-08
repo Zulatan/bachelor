@@ -4,8 +4,11 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
 
-  modules: [
-  ],
+  modules: ['nuxt-auth-sanctum'],
+
+  sanctum: {
+    baseUrl: 'https://bachelor.dk:8080',
+  },
 
   runtimeConfig: {
     public: {

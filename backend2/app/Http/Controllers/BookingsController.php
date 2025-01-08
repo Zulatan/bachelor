@@ -20,8 +20,20 @@ class BookingsController extends Controller
 
     public function index()
     {
-        $bookings = $this->bookingRepository->getAllBookings();
-        return response()->json($bookings);
+        try {
+            //code...
+            $bookings = $this->bookingRepository->getAllBookings();
+            return response()->json([
+                $bookings,
+                'message' => 'Hentede alle bookinger!'
+            ]);
+
+        } catch (\Throwable $th) {
+            report($th);
+            return response()->json([
+                'message' => 'Fejl i hentelsen af bookinger'
+            ], 500); // 500 = intern server fejl
+        }
     }
     
     public function getCustomerBookings($userId)

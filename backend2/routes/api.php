@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route; 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingsController;
 
+// user action
 Route::get('/bookings/customers', [BookingsController::class, 'index']);
 
 Route::get('/bookings/customer/{userId}', [BookingsController::class, 'getCustomerBookings']);
@@ -10,3 +12,11 @@ Route::get('/bookings/customer/{userId}', [BookingsController::class, 'getCustom
 Route::get('/bookings/worker/{userId}', [BookingsController::class, 'GetWorkerBookings']);
 
 Route::post('/bookings', [BookingsController::class, 'storeBooking']);
+
+
+// auth 
+
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::login('/login', [AuthController::class, 'login']);
+Route::logout('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');

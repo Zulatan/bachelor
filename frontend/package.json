@@ -12,6 +12,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "nuxt": "^3.14.159",
+    "nuxt-auth-sanctum": "^0.5.4",
     "vue": "latest",
     "vue-router": "latest"
   }
