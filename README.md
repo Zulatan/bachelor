@@ -7,7 +7,7 @@
 - Postman or Insomnia to test the API.
 - A text editor such as Visual Studio Code or Sublime Text.
 - Composer installed on your system for Laravel dependencies. Will also be shown how in the steps below.
-- Node.js and NPM if the frontend requires it. Get node from their website: https://nodejs.org/en/download, and get a 'LTS' version or v20.9.0.
+- Node.js and NPM if the frontend requires it. Get node from their website: https://nodejs.org/en/download, and get an 'LTS' version or v20.9.0.
 - Locally install PHP from https://www.php.net/downloads.php. Get version 8.3.
 
 # Steps to run the project locally
