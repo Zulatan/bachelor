@@ -58,6 +58,8 @@
      DB_USERNAME=your_mysql_username
      DB_PASSWORD=your_mysql_password
 
+     Lastly in this step, run the command in terminal: `php artisan key:generate`.
+
 9. **Visit the host URL**  
    Open a browser and go to `https://bachelor.dk:8080/bookings/customers` to test the application. Check other endpoint routes in `backend2/routes/web.php`.
    If your version of MAMP does not support SSL, simply visit a HTTP URL instead of HTTPS: `http://bachelor.dk:8080/bookings/customers`
@@ -73,7 +75,7 @@
 - **Server not starting**: Ensure MAMP is running and all configurations are correct.  
 - **Database import errors**: Verify the format of the `db_data` file and check the PhpMyAdmin error logs.  
 - **Cannot connect to the database**: Double-check the `.env` file for correct DB_HOST, DB_USERNAME, and DB_PASSWORD.
-- **No Application Encryption Key Has Been Specified**: Run command in terminal: `php artisan key:generate`.
+- **No Application Encryption Key Has Been Specified**: Make sure to run command in terminal: `php artisan key:generate`.
     
     # Check your system for further troubleshooting
     - Ensure Composer is installed by running: `composer --version`
