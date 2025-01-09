@@ -31,7 +31,7 @@ const { data: bookings, error } = await useFetch('https://bachelor.dk:8080/booki
 });
 
 if (error.value) {
-    console.error('Kunne ikke finde nogle bookinger', error.value);
+    console.error('fandt ingen bookinger', error.value);
 }
 
 
