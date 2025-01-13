@@ -69,7 +69,7 @@ class BookingsController extends Controller
             ];
 
             $booking = $this->bookingRepository->createBooking($data, [$validateData['service_id']]);
-            $booking->services()->attach($validateData['service_id']);
+            // $booking->services()->attach($validateData['service_id']);
 
         } catch (\Throwable $th) {
             //throw $th;

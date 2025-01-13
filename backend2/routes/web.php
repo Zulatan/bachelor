@@ -12,13 +12,12 @@ use Inertia\Inertia;
 ##  Routes defined here expect to return web content (like HTML or Blade templates). ##
 
 Route::get('/bookings/customers', [BookingsController::class, 'index']);
-
 Route::get('/bookings/customer/{userId}', [BookingsController::class, 'getCustomerBookings']);
-
 Route::get('/bookings/worker/{userId}', [BookingsController::class, 'GetWorkerBookings']);
+Route::get('/bookings/{id}', [BookingsController::class, 'getBookingWithServices']);
 
 // Route::post('/bookings/customer/{userId}', [BookingsController::class, 'storeBooking']);
-Route::post('/bookings/store', [BookingsController::class, 'storeBooking']);
+Route::post('/bookings', [BookingsController::class, 'storeBooking']);
 
 // VUE INERTIA code
 
