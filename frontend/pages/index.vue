@@ -4,7 +4,9 @@
     <h1>Bookings</h1>
     <ul>
         <li v-for="booking in bookings" :key="booking.id">
+          <p>
             {{ booking.user.name }} - {{ booking.scheduled_time }}
+          </p>
         </li>
     </ul>
     </div>

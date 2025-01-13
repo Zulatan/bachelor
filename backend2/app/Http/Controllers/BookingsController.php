@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Bookings;
 use Illuminate\Http\Request;
-// use Illuminate\Container\Attributes\Log;
 use App\Repositories\BookingRepository;
-
 
 class BookingsController extends Controller
 {
@@ -21,17 +19,16 @@ class BookingsController extends Controller
     public function index()
     {
         try {
-            //code...
             $bookings = $this->bookingRepository->getAllBookings();
             return response()->json([
                 $bookings,
-                'message' => 'Hentede alle bookinger!'
+                'message' => 'hentede alle bookinger'
             ]);
 
         } catch (\Throwable $th) {
             report($th);
             return response()->json([
-                'message' => 'Fejl i hentelsen af bookinger'
+                'message' => 'fejl i hentelsen af bookinger'
             ], 500); // 500 = intern server fejl
         }
     }
@@ -48,14 +45,18 @@ class BookingsController extends Controller
         return response()->json($bookings);
     }
 
+    public function getBookingWithServices($bookingId)
+    {
+        $bookings = $this->bookingRepository->getBookingWithServices($bookingId);
+        return response()->json($bookings);
+    }
 
     public function storeBooking(Request $request)
     {
-        // validate date and time and id of service with built in http request object
         $validateData = $request->validate([
             'date'          => 'required|date',
-            'time'          => 'required|date_format:H:i', // validerer time format
-            'service_id'    => 'required|exists:services,id', // findes servicen
+            'time'          => 'required|date_format:H:i', // tidsformat valideres
+            'service_id'    => 'required|exists:services,id', // tjekker at servicen findes i systemet
         ]);
         
         $scheduledTime = $validateData['date']. '' . $validateData['time'];

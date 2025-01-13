@@ -32,4 +32,7 @@ class Service extends Model
     {
         return $this->belongsToMany(Bookings::class, 'booking_service', 'service_id', 'booking_id');
     }
+
+
+
 }

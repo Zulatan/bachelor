@@ -12,9 +12,9 @@ return new class extends Migration
             $table->id(); 
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamp('scheduled_time'); 
-            $table->string('status')->default('pending'); // service pending or done?
-            $table->timestamps(); // Adds created_at and updated_at
-            $table->softDeletes(); // Adds deleted_at for soft deletes
+            $table->string('status')->default('pending');
+            $table->timestamps(); 
+            $table->softDeletes();
         });
     }
 
@@ -22,5 +22,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('bookings');
     }
+
 };
 
