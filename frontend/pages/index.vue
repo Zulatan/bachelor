@@ -14,22 +14,21 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useFetch } from 'nuxt/app';
+import { useRuntimeConfig } from 'nuxt/app';
 
 const bookings = ref([]);
+const config = useRuntimeConfig();
+const apiBase = config.public.apiBase;
 
 onMounted(async () => {
-  await useFetch('https://bachelor.dk:8080/sanctum/csrf-cookie', {
-    credentials: 'include',
-  });
-
-  const { data, error } = await useFetch('https://bachelor.dk:8080/bookings/customers', {
-    method: 'GET',
+  console.log('onmount kører', apiBase);
+  console.log('config:', config);
+  
+  const { data, error } = await useFetch(`${apiBase}/bookings/customers`, {
     credentials: 'include',
     headers: {
-      'X-Requested-With': 'XMLHttpRequest',
-      'Accept': 'application/json',
-    },
+      
+    }
   });
 
   if (error.value) {

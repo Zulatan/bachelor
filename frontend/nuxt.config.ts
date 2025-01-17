@@ -12,7 +12,14 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      baseURL: 'http://127.0.0.1:8000',
+      apiBase: 'https://bachelor.dk:8080',
+      fetchOptions: {
+        credentials: 'include',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json',
+        }
+      }
     }
   }
 })
