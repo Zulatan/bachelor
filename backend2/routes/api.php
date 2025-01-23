@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route; 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingsController;
+use App\Http\Controllers\CsrfTokenController;
 use Illuminate\Http\Request;
 
 Route::get('/bookings/customers', [BookingsController::class, 'index']);
@@ -18,12 +19,17 @@ Route::post('/tokens/create', function (Request $request) {
     return ['token' => $token->plainTextToken];
 });
 
+// auth routes
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-
-// auth 
+Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
-Route::login('/login', [AuthController::class, 'login']);
-Route::logout('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+Route::middleware('api')->post('/login', [AuthController::class, 'login']);
+
+
+Route::get('csrf-token', [CsrfTokenController::class, 'getCsrfToken']);
+// Route::get('csrf-token', function () {
+//     return response()->json(['token' => csrf_token()]);
+// });

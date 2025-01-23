@@ -21,13 +21,21 @@ class AuthController extends Controller
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
         ]);
+
         return response()->json([
-            'name' => $user->name,
-            'email' => $user->email,
-        ]);
+            'name'      => $user->name,
+            'email'     => $user->email,
+            'message'   => 'Bruger oprettet'
+        ], 201);
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email'     => 'required|email',
+            'password'  => 'required',
+        ]);
+
         $user = User::where('email',  $request->email)->first();
 
         if(! $user || ! Hash::check($request->password, $user->password)) {
@@ -40,14 +48,16 @@ class AuthController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'User logged in successfully',
+            'message' => 'Bruger loggede ind succesfuldt',
             'name' => $user->name,
             'token' => $user->createToken('auth_token')->plainTextToken,
         ]);
     }
 
-    public function logout(Request $request){
-        $request->user()->currentAccessToken()->delete();
+    public function logout(Request $request)
+    {
+        // $request->user()->currentAccessToken()->delete();
+        $request->user()->tokens()->delete();
 
         return response()->json([
             'status'    => 'success',

@@ -13,7 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         // Tilføj her URIs, du ønsker at udelukke fra CSRF
-        'sanctum/csrf-cookie',
-        'bookings/customers',
+        // 'sanctum/csrf-cookie',
+        // 'bookings/customers',
     ];
 }

@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\BookingsController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CsrfTokenController;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
 ##  Handles routes for traditional web pages that render HTML views.                 ##
@@ -19,25 +22,17 @@ Route::get('/bookings/{id}', [BookingsController::class, 'getBookingWithServices
 // Route::post('/bookings/customer/{userId}', [BookingsController::class, 'storeBooking']);
 Route::post('/bookings', [BookingsController::class, 'storeBooking']);
 
-// VUE INERTIA code
+// auth 
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 });
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('csrf-token', [CsrfTokenController::class, 'getCsrfToken']);
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';
+// Route::get('csrf-token', function () {
+//     return response()->json(['token' => csrf_token()]);
+// });
