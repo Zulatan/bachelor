@@ -1,16 +1,18 @@
 <template>
-    <div>
+    <div v-if="token">
         <h1>Velkommen til Dashboardet</h1>
         <p v-if="user">Hej {{ user.name }}</p>
         <p v-else>Indlæser brugerdata...</p>
         <button @click="logout">Logout</button>
     </div>
+    <NuxtLink v-else to="/login">Log ind for at benytte app</NuxtLink>
 </template>
 
 <script setup>
 definePageMeta({
-  layout: 'default'
+  layout: 'custom'
 })
+
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -20,7 +22,7 @@ const router = useRouter();
 const config = useRuntimeConfig();
 const apiBase = config.public.apiBase;
 
-console.log('api nøgle:', apiBase);
+// console.log('api nøgle:', apiBase);
 
 async function getUserData() {
     const token = localStorage.getItem('authToken');
@@ -31,7 +33,7 @@ async function getUserData() {
     }
 
     try {
-        const response = await fetch(`${apiBase}/api/user`, {
+        const response = await fetch(`${apiBase}/user`, {
         headers: { 'Authorization': `Bearer ${token}` }
         });
 
@@ -53,5 +55,5 @@ function logout() {
     router.push('/login');
 }
 
-onMounted(getUserData);
+// onMounted(getUserData);
 </script>

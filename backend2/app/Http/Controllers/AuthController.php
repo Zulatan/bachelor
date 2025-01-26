@@ -31,6 +31,12 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        // return response()->json([
+        //     'received_data' => $request->all(),
+        //     'headers' => $request->headers->all(),
+        //     'cookies' => $request->cookies->all()
+        // ], 200);
+        
         $request->validate([
             'email'     => 'required|email',
             'password'  => 'required',

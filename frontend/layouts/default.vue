@@ -1,12 +1,11 @@
 <template>
     <div>
-        <p>Some default layout content shared across all pages</p>
+        <p>default layout</p>
         <Navbar />
         <slot />
     </div>
 </template>
   
 <script>
-    console.log('default layout');
-
+console.log('default layout');
 </script>

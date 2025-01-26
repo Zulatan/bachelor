@@ -1,11 +1,11 @@
 <template>
     <div>
-        <p>Some custom layout content shared across all pages</p>
+        <p>custom layout</p>
+        <Navbar />
         <slot />
     </div>
 </template>
   
 <script>
-    // console.log('custom layout');
-
+console.log('custom layout');
 </script>

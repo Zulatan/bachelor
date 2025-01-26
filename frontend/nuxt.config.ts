@@ -14,15 +14,17 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ['nuxt-auth-sanctum'],
+  // modules: ['nuxt-auth-sanctum'],
 
-  sanctum: {
-    baseUrl: 'https://bachelor.dk:8080',
-  },
+  // sanctum: {
+  //   baseUrl: 'https://bachelor.dk:8080',
+  // },
 
   runtimeConfig: {
     public: {
-      apiBase: 'https://bachelor.dk:8080',
+      apiBase: 'https://sandbox.dev.passon.dk/backend2/public',
+      // apiBase: 'http://bachelor.dk:8080',
+      // apiBase: 'http://127.0.0.1:8000',
       fetchOptions: {
         credentials: 'include',
         headers: {

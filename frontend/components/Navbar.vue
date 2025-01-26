@@ -1,7 +1,7 @@
 <template>
     <nav>
-        <NuxtLink to="/">Hjem</NuxtLink>
         <NuxtLink to="/dashboard">Dashboard</NuxtLink>
+        <NuxtLink to="/register">Opret bruger</NuxtLink>
         <button v-if="isAuthenticated" @click="logout">Logout</button>
         <NuxtLink v-else to="/login">Login</NuxtLink>
     </nav>
@@ -12,13 +12,13 @@ import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const authToken = ref(localStorage.getItem('authToken'));
+// const authToken = ref(localStorage.getItem('authToken'));
 
-const isAuthenticated = computed(() => !!authToken.value);
+// const isAuthenticated = computed(() => !!authToken.value);
 
 function logout() {
-    localStorage.removeItem('authToken');
-    authToken.value = null;
+    // localStorage.removeItem('authToken');
+    // authToken.value = null;
     router.push('/login');
 }
 </script>

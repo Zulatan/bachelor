@@ -28,10 +28,17 @@ const apiBase = config.public.apiBase;
 
 async function register() {
     try {
-        const response = await fetch(`${apiBase}/api/register`, {
+        const response = await fetch(`${apiBase}/register`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: name.value, email: email.value, password: password.value })
+            headers: { 
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({ 
+                name: name.value,
+                email: email.value,
+                password: password.value
+            })
         });
 
         const data = await response.json();
@@ -50,7 +57,7 @@ async function register() {
 </script>
   
   <style scoped>
-  input {
+  /* input {
     display: block;
     margin-bottom: 10px;
     padding: 5px;
@@ -61,6 +68,6 @@ async function register() {
     padding: 5px 10px;
     border: none;
     cursor: pointer;
-  }
+  } */
   </style>
   

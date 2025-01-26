@@ -4,11 +4,14 @@
     <form @submit.prevent="handleLogin">
       <div>
         <label for="email">Email:</label>
-        <input v-model="email" type="email" id="email" required />
+        <input v-model="email" type="email"/>
       </div>
       <div>
         <label for="password">Password:</label>
-        <input v-model="password" type="password" id="password" required />
+        <input v-model="password" type="password"/>
+      </div>
+      <div>
+        <!-- <input type="hidden" name="_token" value="{{ csrf_token() }}" /> -->
       </div>
       <button type="submit">Login</button>
     </form>
@@ -32,7 +35,6 @@ const router = useRouter();
 const config = useRuntimeConfig();
 
 const apiBase = config.public.apiBase;
-// console.log('api nøgle:', apiBase);
 
 const csrfToken = ref('');
 
@@ -46,12 +48,10 @@ async function fetchCsrfToken() {
     if (!response.ok) {
       throw new Error('Kunne ikke hente CSRF-Token');
     }
+    
+    console.log('csrf cookie:', response);
 
-    const text = await response.text();
-    console.log('csrf-cookie response tekst:', text);
 
-    // const data = await response.json();
-    // console.log('csrf-token i try:', data.token);
   } catch (error) {
     console.error('catch:', error);
   }
@@ -61,12 +61,22 @@ async function fetchCsrfToken() {
 async function handleLogin() {
   await fetchCsrfToken(); 
 
+  console.log('Sender login request:', {
+    email: email.value,
+    password: password.value
+  });
+
   try {
+    // const csrfToken = document.cookie.split(';').find(cookie => cookie.trim().startsWith('XSRF-TOKEN='));
+    // const token = csrfToken ? decodeURIComponent(csrfToken.split('=')[1]) : '';
+
     const response = await fetch(`${apiBase}/login`, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': csrfToken.value || '', 
+        'Accept': 'application/json',
+        // 'X-CSRF-TOKEN': csrfToken.value,
+        // 'X-CSRF-TOKEN': token,
       },
       body: JSON.stringify({ 
         email: email.value, 
@@ -75,14 +85,12 @@ async function handleLogin() {
       credentials: 'include', 
     });
 
-    // Tjek om svaret er JSON
     if (!response.ok) {
       throw new Error('Login mislykkedes');
     }
 
-    // Hvis svaret er JSON, pars det
     const data = await response.json();
-    console.log('Login succes:', data);
+    console.log('Svar fra API:', data);
 
     if (data.token) {
       localStorage.setItem('authToken', data.token);
@@ -96,55 +104,8 @@ async function handleLogin() {
     console.error('Fejl ved login:', error);
   }
 }
-
-
-// async function getUserData() {
-//     const token = localStorage.getItem('authToken');
-
-//     const response = await fetch('https://bachelor.dk/api/user', {
-//         headers: { 'Authorization': `Bearer ${token}` }
-//     });
-
-//     return await response.json();
-// }
-
-// async function logout() {
-// const token = localStorage.getItem('authToken');
-
-// await fetch('http://your-laravel-api.com/api/logout', {
-//     method: 'POST',
-//     headers: { 'Authorization': `Bearer ${token}` }
-// });
-
-// localStorage.removeItem('authToken');
-// }
 </script>
 
 <style>
-.login-container {
-  max-width: 300px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background: #f9f9f9;
-}
-input {
-  display: block;
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 8px;
-}
-button {
-  width: 100%;
-  padding: 10px;
-  background: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-.error {
-  color: red;
-  margin-top: 10px;
-}
+
 </style>
